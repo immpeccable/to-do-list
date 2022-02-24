@@ -1,0 +1,161 @@
+body{
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.header{
+    display: flex;
+    gap: 45vw;
+    width: 100vw;
+    height: 10vh;
+    background-color: rgb(170, 194, 173);
+    align-items: center;
+}
+
+.app-name{
+    font-size: 30px;
+    color: rgb(47, 115, 124);
+    font-weight: bold;
+    margin-left: 2rem;
+    margin-top: 30px;
+}
+.inbox-text{
+    font-size: 25px;
+    font-weight: 500;
+    margin-top: 40px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+.left-side{
+
+    width: 20vw;
+    background-color: rgb(224, 230, 228);
+    height: 88vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 2vh;
+}
+.button-div{
+    display: flex;
+    gap: 4px;
+    padding: 5px 5px 2px 10px;
+    border-radius: 8px;
+}
+.button-div > button {
+    
+    width: 15vw;
+    height: 3vh;
+    border: none;
+    background-color: inherit;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: left;
+    
+}
+.button-div > img, .create-div > img {
+    width: 24px;
+    height: 24px;
+}
+.button-div:hover{
+    background-color: rgb(193, 195, 197);
+}
+.projects{
+    margin-top: 3rem;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    width: 20rem;
+    gap: 12px;
+    border-bottom: 2px solid rgb(175, 156, 156);
+    padding-bottom: 10px;
+}
+.projects .txt{
+    font-size: 24px;
+    font-weight: bold;
+    
+}
+.projects > img {
+    width: 24px;
+    height: 24px;margin-left: 15px;
+}
+.replace-create{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /*background-color: blue;*/
+    width: 15vw;
+}
+.project-name{
+    background-color: inherit;
+    border: none;
+    border-bottom: 2px solid black;
+    height: 3vh;
+    outline:none;
+    
+}
+.project-name:focus{
+
+    background-color: rgb(208, 210, 212);
+}
+.project-button > button {
+    height: 40px;
+    width: 80px;
+    background-color: rgb(170, 194, 173);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.project-button > button:hover{
+    background-color: rgb(151, 173, 154);
+}
+.project-button > button:active{
+    background-color: rgb(129, 151, 132);
+}
+.project-list{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.project-list .item{
+    display: flex;
+    align-items: center;
+    width: 14vw;
+    height: 4vh;
+    background-color: inherit;
+    border-radius: 8px;
+    padding-left: 10px;
+}
+.project-list .item:hover{
+    background-color: rgb(193, 195, 197);
+}
+.project-list .item .text{
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+.item > img {
+    width: 16px;
+    height: 16px;
+}
+.delete{
+    width: 16px;
+    height: 16px;    
+    margin: 5px 10px 0 0;
+
+}
+.delete-button{
+    align-self: right;
+    background-color: inherit;
+    position: absolute;
+    border: none;
+    width: 24px;
+    height: 24px;
+    left: 18rem;
+    border-radius: 50%;
+}
