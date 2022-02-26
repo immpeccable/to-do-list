@@ -25,11 +25,18 @@ let loadLeftSide = () => {
             <img src="./images/plus.png" alt="">
             <button id = "create-button">Create New Project</button>
         </div>
+        
+        <div class = "replace-create passive" id = "replace-create">
+            <input placeholder="project name" class = "project-name" id = "project-name" type="text">
+            <div class = "project-button">
+                <button id = "project-add-button">Add</button>
+                <button id = "project-cancel-button">Cancel</button>
+            </div>
+        </div>
+        
         <div class = "project-list" id = "project-list">
                     
-                </div>
-        
-        <div></div>
+        </div>
     </div>
 </div>
 `;
