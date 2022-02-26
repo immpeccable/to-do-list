@@ -4,9 +4,9 @@ import {createProject} from './createNewProject';
 
 let initializeWebsite = () => {
 
-    /*loadHeader();
+    loadHeader();
     loadLeftSide();
-    createProject();*/
+    createProject();
 
 }
 

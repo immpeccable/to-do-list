@@ -38,6 +38,40 @@ let loadLeftSide = () => {
                     
         </div>
     </div>
+    <div class="right-side" id="right-side">
+                <button class = "add-task" id = "add-task">
+                    <img class = "plus-img" src="images/plus.png" alt="">
+                    <div>Add Task</div>
+                </button>
+
+                <div class="task-inputs passive" id="task-inputs">
+                    <div class="name-date-project">
+                        <input type="text" id="input-task-name" class="input-task-name" placeholder="Task Name">
+                        <input type="date" id="input-task-date" class="input-task-date" placeholder="Schedule">
+                        <select name="project-select" id="project-select">
+                            <option value="Inbox">Inbox</option>
+                        </select>
+                    </div>
+                    <div class = "priority-add-cancel">
+                        <select name="priority-select" id="priority-select">
+                            <option selected value="Inbox">Select Priority</option>
+                        </select>
+
+                        <div class ="add-cancel">
+                            <button class = "input-task-add" id = "input-task-add">
+                                Add
+                            </button>
+                            <button class = "input-task-cancel" id = "input-task-cancel">
+                                Cancel 
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-grid" id = "task-grid">
+                    
+                </div>
+            </div>
 </div>
 `;
 
