@@ -23,6 +23,7 @@ body{
     font-size: 25px;
     font-weight: 500;
     margin-top: 40px;
+    margin-left: 4rem;
 }
 .container{
     display: flex;
@@ -171,4 +172,121 @@ body{
 .right-side{
     width: 80vw;
     height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+.add-task{
+    width: 50vw;
+    height: 5vh;
+    background-color: rgb(224, 230, 228);
+    border-radius: 8px;
+    margin-top: 3rem;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+}
+.add-task.passive{
+    display: none;
+}
+.add-task:hover{
+    background-color: rgb(208, 214, 212);
+}
+.add-task:active{
+    background-color: rgb(181, 184, 183);
+}
+.plus-img{
+    width: 18px;
+    height: 18px;   
+}
+
+.task-grid{
+    display: grid;
+    grid-auto-columns: 70vw;
+    grid-auto-rows: 5vh;
+    margin-top: 3rem;
+    row-gap: 1rem;
+}
+
+.task-label{
+    display: flex;
+    justify-content: space-between;
+    width: 50vw;
+    height: 5vh;
+    margin-left: 2rem;
+    margin-top: 2rem;
+}
+.expand-img, .delete-img{
+    width: 18px;
+    height: 18px;
+    border: none;
+    background-color: inherit;
+    cursor:pointer;
+}
+.delete-expand{
+    display: flex;
+    gap: 40px;
+    
+}
+.task-grid .item{
+    background-color: rgb(231, 223, 223);
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding-left: 2rem;
+}
+.task-inputs{
+    width: 22vw;
+    height: 8vh;
+    border: 1px solid rgb(201, 196, 196);
+    margin-top: 3rem;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.task-inputs.passive{
+    display: none;
+}
+.input-task-name, .input-task-date{
+    border: none;
+    border-bottom: 2px solid black;
+    height: 3vh;
+    outline: none;
+}
+.input-task-date{
+    margin-top: 2px;
+}
+#project-select{
+    border: none;
+    height: 3vh;
+    margin-top: 3px;
+    width: 4vw;
+}
+#priority-select{
+    border: none;
+    height: 3vh;
+    width: 7vw;
+}
+.name-date-project{
+    display: flex;
+    gap: 10px;
+}
+.priority-add-cancel{
+    display: flex;
+    justify-content: space-between;
+}
+.add-cancel{
+    
+}
+.input-task-add, .input-task-cancel{
+    background-color: rgb(170, 194, 173);
+    height: 3vh;
+    border: none;
+    cursor: pointer;
+}   
