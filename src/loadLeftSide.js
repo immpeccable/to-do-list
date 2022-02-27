@@ -3,15 +3,15 @@ let loadLeftSide = () => {
     let content = document.getElementById("content");
     content.innerHTML += `<div class = "container">
     <div class = "left-side" id = "left-side">
-        <div class = "button-div">
+        <div class = "button-div" id = "inbox-div">
             <img src="./images/inbox.png" alt="">
             <button>Inbox</button>
         </div>
-        <div class = "button-div">
+        <div class = "button-div" id = "today-div">
             <img src="./images/calendar.png" alt="">
             <button>Today</button>
         </div>
-        <div class = "button-div">
+        <div class = "button-div" id = "upcoming-div">
             <img src="./images/calendar(1).png" alt="">
             <button>Upcoming</button>
         </div>
