@@ -54,7 +54,10 @@ let loadLeftSide = () => {
                     </div>
                     <div class = "priority-add-cancel">
                         <select name="priority-select" id="priority-select">
-                            <option selected value="Inbox">Select Priority</option>
+                            <option selected value="select-priority">Select Priority</option>
+                            <option  value="low">Low</option>
+                            <option  value="medium">Medium</option>
+                            <option  value="high">High</option>
                         </select>
 
                         <div class ="add-cancel">

@@ -17,6 +17,7 @@ let createProject = () => {
     let projectList = document.getElementById('project-list');
     let deleteButtons = [];
     let projectSelect = document.getElementById("project-select");
+    let prioritySelect = document.getElementById("priority-select");
     let inbox = new Project("Inbox");
     let inboxDiv = document.getElementById("inbox-div");
     projects.push(inbox);
@@ -69,7 +70,7 @@ let createProject = () => {
         
         addProjectEventListener();
         
-        projectSelect.innerHTML += `<option value="${projectid}">${projectName}</option>`
+        projectSelect.innerHTML += `<option id = "option-${projectName}" value="${projectid}">${projectName}</option>`
 
         addDeleteProjectEventListener();
 
@@ -106,8 +107,10 @@ let createProject = () => {
                 let tobedeleted = document.getElementById("item-"+prid);
                 projectList.removeChild(tobedeleted);
 
+                let optionremove = document.getElementById("option-"+projects[i].getName());
+                projectSelect.removeChild(optionremove);
+
                 let tasks = projects[i].getTasks();
-                console.log(tasks);
                 
                 for(let i = 0; i<tasks.length; i++){
                     let taskName = tasks[i].getName();
@@ -126,11 +129,6 @@ let createProject = () => {
                     return value.getName() != projects[i].getName();
                 })
                 projects = newProjects;
-                console.log("newprojects: ");
-                console.log(newProjects);
-
-                console.log("hello");
-
 
             })
 
@@ -163,13 +161,16 @@ let createProject = () => {
 
     taskInputAdd.addEventListener('click', () => {
 
-        console.log("6");
+        //console.log("6");
         addTask.classList.remove("passive");
         taskInputs.classList.add('passive');
 
         let taskName = document.getElementById("input-task-name").value;
         let taskDate = document.getElementById("input-task-date").value;
         let taskProject = projectSelect.options[projectSelect.selectedIndex].text;
+        let priority = prioritySelect.options[prioritySelect.selectedIndex].text;
+
+        
 
         let newTask = new Task(taskName, taskDate);
 
@@ -181,8 +182,7 @@ let createProject = () => {
                 projects[i].addTask(newTask);
             }
         }
-
-        addTaskToGrid(taskName, taskDate);
+        addTaskToGrid(taskName, taskDate, priority);
         addEventListenerToDelete();
     });
 
@@ -281,9 +281,9 @@ let createProject = () => {
         }
     }
 
-    let addTaskToGrid = (taskName, taskDate) => {
+    let addTaskToGrid = (taskName, taskDate, priority) => {
 
-        taskGrid.innerHTML += `<div class="item" id  = "item-${taskName}${taskDate}">
+        taskGrid.innerHTML += `<div class="item ${priority}" id  = "item-${taskName}${taskDate}">
         <input type="checkbox" id="task1" name="task1" value="task1">
         <label class="task-label" for="task1">
             <div class="task-name" id="task-name">
