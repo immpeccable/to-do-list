@@ -290,3 +290,13 @@ body{
     border: none;
     cursor: pointer;
 }   
+
+.task-grid .item.Low{
+    background-color: aquamarine;
+}
+.task-grid .item.Medium{
+    background-color: rgb(120, 76, 161);
+}
+.task-grid .item.High{
+    background-color: rgb(184, 88, 88);
+}
