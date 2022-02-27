@@ -240,6 +240,9 @@ body{
     border-radius: 8px;
     padding-left: 2rem;
 }
+.task-grid .item.passive{
+    display: none;
+}
 .task-inputs{
     width: 22vw;
     height: 8vh;
@@ -280,9 +283,6 @@ body{
 .priority-add-cancel{
     display: flex;
     justify-content: space-between;
-}
-.add-cancel{
-    
 }
 .input-task-add, .input-task-cancel{
     background-color: rgb(170, 194, 173);

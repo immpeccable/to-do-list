@@ -20,7 +20,7 @@ let createProject = () => {
     let inbox = new Project("Inbox");
     let inboxDiv = document.getElementById("inbox-div");
     projects.push(inbox);
-    console.log(inboxDiv);
+    //console.log(inboxDiv);
 
     inboxDiv.addEventListener('click', () => {
         if(activeProject != "Inbox"){
@@ -28,21 +28,22 @@ let createProject = () => {
             clearTaskGrid();
             loadTasks("Inbox");
         }
-        deleteTaskEventListener();
+        //deleteTaskEventListener();
     })
 
 
     createDiv.addEventListener('click', () => {
 
-
+        console.log("1");
         replaceCreate.classList.remove("passive");
         createDiv.classList.add("passive");
     });
 
     addButton.addEventListener('click', () => {
-        console.log("1");
+        //console.log("1");
 
         replaceCreate.classList.add("passive");
+        console.log("2");
         createDiv.classList.remove("passive");
 
         let projectName = document.getElementById("project-name").value;
@@ -62,10 +63,6 @@ let createProject = () => {
 
         document.getElementById("text-" + projectid).textContent = projectName;
 
-        let deleteButton = document.getElementById('get-delete-' + projectid);
-        
-        deleteButtons.push(deleteButton);
-
         let newProject = new Project(projectName);
         projects.push(newProject);
         console.log(projects);
@@ -74,9 +71,9 @@ let createProject = () => {
         
         projectSelect.innerHTML += `<option value="${projectid}">${projectName}</option>`
 
-        
+        addDeleteProjectEventListener();
 
-        for (let i = 0; i < deleteButtons.length; i++) {
+        /*for (let i = 0; i < deleteButtons.length; i++) {
 
 
             let button = document.getElementById(deleteButtons[i].id);
@@ -88,15 +85,64 @@ let createProject = () => {
                 let deleted = document.getElementById("item-" + prid);
                 projectList.removeChild(deleted);
 
+
+
+
+
             })
-        }
+        }*/
+        
 
     });
+
+    let addDeleteProjectEventListener = () => {
+
+        for(let i = 1; i<projects.length; i++){
+
+            let prid = replaceSpace(projects[i].getName());
+            let deleteItem = document.getElementById("img-" +prid );
+            console.log(deleteItem);
+            deleteItem.addEventListener('click', () =>{
+                let tobedeleted = document.getElementById("item-"+prid);
+                projectList.removeChild(tobedeleted);
+
+                let tasks = projects[i].getTasks();
+                console.log(tasks);
+                
+                for(let i = 0; i<tasks.length; i++){
+                    let taskName = tasks[i].getName();
+                    let taskDate = tasks[i].getDate();
+
+                    let taskItem = document.getElementById("item-"+taskName+taskDate);
+                    taskGrid.removeChild(taskItem);
+
+                    let newInboxTask = projects[0].getTasks().filter(function(value){
+                        return value.getName() != taskName;
+                    })
+                    projects[0].setTasks(newInboxTask);
+                }
+
+                let newProjects = projects.filter(function(value){
+                    return value.getName() != projects[i].getName();
+                })
+                projects = newProjects;
+                console.log("newprojects: ");
+                console.log(newProjects);
+
+                console.log("hello");
+
+
+            })
+
+        }
+
+    }
 
 
     cancelButton.addEventListener('click', () => {
 
         replaceCreate.classList.add("passive");
+        console.log("3");
         createDiv.classList.remove("passive");
 
     });
@@ -104,17 +150,20 @@ let createProject = () => {
     addTask.addEventListener('click', () => {
 
         addTask.classList.add("passive");
+        console.log("4");
         taskInputs.classList.remove('passive');
 
 
     });
     taskInputCancel.addEventListener('click', () => {
+        console.log("5");
         addTask.classList.remove("passive");
         taskInputs.classList.add("passive");
     });
 
     taskInputAdd.addEventListener('click', () => {
 
+        console.log("6");
         addTask.classList.remove("passive");
         taskInputs.classList.add('passive');
 
@@ -125,18 +174,75 @@ let createProject = () => {
         let newTask = new Task(taskName, taskDate);
 
         projects[0].addTask(newTask);
+        let i = 1;
 
-        for(let i = 1; i < projects.length; i++){
+        for(; i < projects.length; i++){
             if(projects[i].getName() == taskProject){
                 projects[i].addTask(newTask);
             }
         }
 
         addTaskToGrid(taskName, taskDate);
-        deleteTaskEventListener(taskProject);
-    
+        addEventListenerToDelete();
     });
 
+    let findProject = (taskName, taskDate) =>{
+
+        for(let i = 1; i<projects.length; i++){
+            
+            let project = projects[i];
+            let tasks = projects[i].getTasks();
+            for(let j = 0; j < tasks.length; j++){
+                if(/*tasks[j].getDate() == taskDate &&*/ tasks[j].getName() == taskName){
+                    return project;
+                }
+            } 
+
+        }
+
+    }
+
+    let addEventListenerToDelete = () => {
+        let tasks = projects[0].getTasks();
+
+        for(let i = 0; i < tasks.length; i++){
+            let taskName = tasks[i].getName();
+            let taskDate = tasks[i].getDate();
+
+            let deleteTask = document.getElementById("delete-img-"+taskName+taskDate);
+
+            deleteTask.addEventListener('click', () => {
+
+                let tobedeleted = document.getElementById("item-"+taskName+taskDate);
+                taskGrid.removeChild(tobedeleted);
+                
+                let project = findProject(taskName, taskDate);
+                if(project == undefined){
+                    project = projects[0];
+                }
+                console.log(project);
+                
+                let newTasks = project.getTasks().filter(function(value){
+                    return value.getName() != taskName ;
+                })
+                project.setTasks(newTasks);
+                console.log("newTasks: ");
+                console.log(newTasks);
+    
+                if(project.getName() != "Inbox"){
+                    let newInboxTasks = projects[0].getTasks().filter(function(value){
+                        return value.getName() != taskName ;
+                    })
+                    console.log("newInboxTasks: ");
+                    console.log(newInboxTasks);
+                    projects[0].setTasks(newInboxTasks);
+                }
+    
+            })
+
+        } 
+    }
+    
     let replaceSpace = (projectName) => {
         let projectid = "";
         for (let i = 0; i < projectName.length; i++) {
@@ -147,49 +253,6 @@ let createProject = () => {
         return projectid;
     }
 
-    let deleteTaskEventListener = (name = "") => {
-
-        
-        let tasks = projects[0].getTasks();
-        //console.log("mrb");
-        for(let i = 0; i < tasks.length; i++){
-
-            let taskName = tasks[i].getName();
-            let taskDate = tasks[i].getDate();
-            let deleteImg = document.getElementById("delete-img-"+taskName+taskDate);
-            deleteImg.addEventListener('click' , () => {
-                
-
-                let tobedeleted = document.getElementById("item-"+taskName+taskDate);
-                taskGrid.removeChild(tobedeleted);
-                
-                let filtered = tasks.filter(function(value){
-                    return value.getName() != taskName || value.getDate() != taskDate;
-                });
-                
-                projects[0].setTasks(filtered);
-                
-
-                let project;
-                for(let i = 0; i<projects.length; i++){
-                    if(projects[i].getName()== name){
-                        project = projects[i];
-                    }
-                }
-                
-                let filtered2 = project.getTasks().filter(function(value){
-                    return value.getName() != taskName || value.getDate() != taskDate;
-                })
-                project.setTasks(filtered2);
-                
-
-
-                
-            })
-        }
-
-
-    }
 
     let addProjectEventListener = () => {
         for(let i = 0; i < projects.length; i++){
@@ -200,12 +263,14 @@ let createProject = () => {
             if(prname == "Inbox"){
                 continue;
             }
+            
             let project = document.getElementById("item-"+prid);
             
             project.addEventListener('click' , () => {
 
                 
                 if(activeProject != prname){
+                    console.log("i am clicked");
                     activeProject = prname;
                     clearTaskGrid();
                     loadTasks(prname);
@@ -237,13 +302,18 @@ let createProject = () => {
             </div>
         </label>
     </div>`;
-
     }
 
 
 
     let clearTaskGrid = () => {
-        taskGrid.innerHTML = "";
+        
+        let elements = taskGrid.getElementsByTagName("*");
+        
+        for(let i = 0; i<elements.length; i++){
+            elements[i].classList.add("passive");
+        }
+
     }
     let loadTasks = (prname) => {
 
@@ -253,24 +323,33 @@ let createProject = () => {
                 project = projects[i];
             }
         }
+        if(project == undefined){
+            loadTasks("Inbox");
+            return;
+        }
         console.log(project);
         let tasks = project.getTasks();
+        console.log(tasks);
+        console.log(tasks.length);
 
-        for(let i = 0; i<tasks.length; i++){
+        let bound = tasks.length;
+        console.log("bound: "+bound);
+
+        for(let q = 0; q<bound; q++){
             
-            let taskName = tasks[i].getName();
-            let taskDate = tasks[i].getDate();
+            console.log("q: "+q);
+            let taskName = tasks[q].getName();
+            let taskDate = tasks[q].getDate();
+            console.log(taskName + taskDate);
 
-            addTaskToGrid(taskName, taskDate);
-
+            let item = document.getElementById("item-"+taskName+taskDate);
+            console.log(item);
+            
+            //console.log("7");
+            item.classList.remove("passive");
         }
+        console.log("hello world");
 
     }
-
-
-
-
-
-
 }
 export { createProject };
