@@ -1,5 +1,6 @@
 import Project from './project'
 import Task from './task'
+import { toDate, isToday, isThisWeek, subDays, compareAsc } from 'date-fns'
 
 let createProject = () => {
 
@@ -20,10 +21,56 @@ let createProject = () => {
     let prioritySelect = document.getElementById("priority-select");
     let inbox = new Project("Inbox");
     let inboxDiv = document.getElementById("inbox-div");
+    let todayTasks = document.getElementById("today-div");
+    let upcomingDiv = document.getElementById("upcoming-div");
+    console.log(todayTasks);
+
     projects.push(inbox);
     //console.log(inboxDiv);
 
+    todayTasks.addEventListener("click", () => {
+
+        activeProject = "Today";
+        clearTaskGrid();
+        console.log("today clicked");
+
+        let tasks = projects[0].getTasks();
+        for (let i = 0; i < tasks.length; i++) {
+            let taskName = tasks[i].getName();
+            let taskDate = tasks[i].getDate();
+
+            let item = document.getElementById("item-" + taskName + taskDate);
+
+            if (isToday(new Date(taskDate))) {
+                item.classList.remove("passive");
+            }
+
+        }
+
+    })
+    upcomingDiv.addEventListener("click", () => {
+
+        activeProject = "upcoming";
+        clearTaskGrid();
+        console.log("upcoming clicked");
+
+        let tasks = projects[0].getTasks();
+        for (let i = 0; i < tasks.length; i++) {
+            let taskName = tasks[i].getName();
+            let taskDate = tasks[i].getDate();
+
+            let item = document.getElementById("item-" + taskName + taskDate);
+
+            if (isThisWeek(new Date(taskDate))) {
+                item.classList.remove("passive");
+            }
+
+        }
+
+    })
+
     inboxDiv.addEventListener('click', () => {
+        console.log("inbox clicked");
         if (activeProject != "Inbox") {
             activeProject = "Inbox";
             clearTaskGrid();
@@ -165,11 +212,11 @@ let createProject = () => {
         //checkTasks();
         let checkArray = [];
         let tasks = projects[0].getTasks();
-        for(let i = 0; i < tasks.length; i++){
+        for (let i = 0; i < tasks.length; i++) {
 
             let taskName = tasks[i].getName();
             let taskDate = tasks[i].getDate();
-            let checkboxItem = document.getElementById("checkbox-"+taskName+taskDate);
+            let checkboxItem = document.getElementById("checkbox-" + taskName + taskDate);
             checkArray.push(checkboxItem.checked);
 
         }
@@ -188,6 +235,8 @@ let createProject = () => {
         let newTask = new Task(taskName, taskDate);
 
         projects[0].addTask(newTask);
+        
+        
         let i = 1;
 
         for (; i < projects.length; i++) {
@@ -199,11 +248,11 @@ let createProject = () => {
         addEventListenerToDelete();
 
         let t2 = projects[0].getTasks();
-        for(let i = 0; i < t2.length - 1; i++){
+        for (let i = 0; i < t2.length - 1; i++) {
 
             let taskName = t2[i].getName();
             let taskDate = t2[i].getDate();
-            let checkboxItem = document.getElementById("checkbox-"+taskName+taskDate);
+            let checkboxItem = document.getElementById("checkbox-" + taskName + taskDate);
             checkboxItem.checked = checkArray[i];
 
 
@@ -216,7 +265,7 @@ let createProject = () => {
         //addEventListenertoChecked(
     });
 
-    let checkTasks = () =>{
+    let checkTasks = () => {
         let tasks = projects[0].getTasks();
         for (let i = 0; i < tasks.length; i++) {
 
@@ -231,20 +280,20 @@ let createProject = () => {
 
 
     /*let addEventListenertoChecked = () =>{
-
+    
         let tasks = projects[0].getTasks();
         for(let i = 0; i < tasks.length; i++){
-
+    
             let taskName = tasks[i].getName();
             let taskDate = tasks[i].getDate();
-
+    
             let checkbox = document.getElementById("checkbox-"+taskName+taskDate);
             console.log("checkbox: ")
             console.log(checkbox);
-
+    
             checkbox.addEventListener("click", () =>{
-
-
+    
+    
                 console.log("ischecked: ");
                 console.log(checkbox.checked);
                 if(checkbox.checked == true){
@@ -253,13 +302,13 @@ let createProject = () => {
                     //console.log("false");
                     checkbox.checked = false;
                 }
-
+    
             })
-
-
-
+    
+    
+    
         } 
-
+    
     }*/
 
     let findProject = (taskName, taskDate) => {
@@ -416,7 +465,7 @@ let createProject = () => {
         console.log(tasks.length);
 
         let bound = tasks.length;
-        console.log("bound: " + bound);
+        //console.log("bound: " + bound);
 
         for (let q = 0; q < bound; q++) {
 
